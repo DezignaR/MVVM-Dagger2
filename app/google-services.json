@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "261107563154",
+    "project_id": "mylittleapp-4d5ba",
+    "storage_bucket": "mylittleapp-4d5ba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:261107563154:android:5c73b04a01dcf69c59c44b",
+        "android_client_info": {
+          "package_name": "com.example.mvvmlesson"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "261107563154-vu68ch4akguu72pe97fmu5v94j2okjte.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIpbxV-YEBPCkrAiS3y5SzfxsxnYzFzTw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "261107563154-vu68ch4akguu72pe97fmu5v94j2okjte.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
