@@ -8,20 +8,65 @@ import androidx.annotation.CallSuper
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 
-abstract class ViewBindingFragment<VB : ViewBinding>() : Fragment() {
 
+typealias ViewBindingCreator<VB> = (LayoutInflater, ViewGroup?, Boolean) -> VB
+
+class ViewBindingStore<VB : ViewBinding>(
+    private val viewBindingCreator: ViewBindingCreator<VB>
+) {
+
+    var viewBinding: VB? = null
+        private set
+
+    fun createViewBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): View = viewBindingCreator.invoke(
+        inflater,
+        container,
+        false
+    ).also {
+        viewBinding = it
+    }.root
+
+    fun destroyViewBinding() {
+        viewBinding = null
+    }
+
+}
+
+abstract class ViewBindingFragment<VB : ViewBinding>(
+    private val viewBindingCreator: ViewBindingCreator<VB>
+) : Fragment() {
+
+    private val viewBindingStore by lazy(LazyThreadSafetyMode.NONE) {
+        ViewBindingStore(viewBindingCreator)
+    }
+
+    private val viewBinding: VB?
+        get() = viewBindingStore.viewBinding
 
     @CallSuper
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
+    ) = viewBindingStore.createViewBinding(
+        inflater,
+        container
+    )
 
     @CallSuper
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?
+    ) {
+        viewBinding?.let {
+            onViewBindingCreated(
+                it,
+                savedInstanceState
+            )
+        }
         super.onViewCreated(view, savedInstanceState)
     }
 
@@ -34,6 +79,8 @@ abstract class ViewBindingFragment<VB : ViewBinding>() : Fragment() {
     @CallSuper
     override fun onDestroyView() {
         super.onDestroyView()
+        viewBindingStore.destroyViewBinding()
+        onViewBindingDestroyed()
     }
 
     @CallSuper

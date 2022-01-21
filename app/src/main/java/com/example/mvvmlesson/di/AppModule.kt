@@ -14,5 +14,9 @@ interface AppModule {
         fun provideRouter(cicerone: Cicerone<Router>):
                 Router = cicerone.router
 
+//        fun provideViewModelFactory():ViewModelFactory{
+//            return ViewModelFactory()
+//        }
+
     }
 }

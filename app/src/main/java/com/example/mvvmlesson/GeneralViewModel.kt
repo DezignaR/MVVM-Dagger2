@@ -7,6 +7,8 @@ import javax.inject.Inject
 
 class GeneralViewModel @Inject constructor() : BaseViewModel() {
 
+
+
     init {
         Log.e("AAA", "View created")
     }

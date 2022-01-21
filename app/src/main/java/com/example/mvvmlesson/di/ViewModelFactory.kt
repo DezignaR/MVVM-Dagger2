@@ -7,14 +7,15 @@ import com.example.mvvmlesson.GeneralViewModel
 import javax.inject.Inject
 import javax.inject.Provider
 
-abstract class ViewModelFactory @Inject constructor(
-    viewModelProvider: Provider<BaseViewModel>)
-    :ViewModelProvider.Factory {
-        private val providers= mapOf<Class<*>,Provider<out ViewModel>>(
-            GeneralViewModel::class.java to viewModelProvider
-        )
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        require(modelClass==BaseViewModel::class)
-        return providers[modelClass]!!.get() as T
-    }
-}
+//abstract class ViewModelFactory @Inject constructor(
+//    viewModelProvider: Provider<BaseViewModel>
+//) : ViewModelProvider.Factory {
+//    private val providers = mapOf<Class<*>, Provider<out ViewModel>>(
+//        GeneralViewModel::class.java to viewModelProvider
+//    )
+//
+//    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+//        require(modelClass == BaseViewModel::class)
+//        return providers[modelClass]!!.get() as T
+//    }
+//}
